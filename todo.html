@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to do</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        .ciz {
+            text-decoration: line-through;
+            color: #AAA !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="todo">
+        <ul>
+            <li v-for="item in list">
+                <span :class="{ciz:item.check}">{{item.label}}</span>
+                <input type="checkbox" v-model="item.check"> {{item.check}}
+            </li>
+        </ul>
+        <div>
+            <input type="text" v-model="newItem" value="add new item">
+            <input type="button" @click="addNewItem()" value="Add">
+        </div>
+    </div>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    list: [{
+                        id: 0,
+                        label: "Odayı topla",
+                        check: false
+                    }, {
+                        id: 0,
+                        label: "Bir şehir kurmak kitabını oku",
+                        check: false
+                    }, {
+                        id: 0,
+                        label: "Rhino kursuna devam et",
+                        check: false
+                    }, ],
+                    newItem: ""
+                }
+            },
+            methods: {
+                addNewItem() {
+                    this.list.push({
+                        id: this.list.length,
+                        label: this.newItem,
+                        check: false
+                    });
+                    this.newItem = "";
+                }
+            }
+        }).mount("#todo")
+    </script>
+</body>
+
+</html>
