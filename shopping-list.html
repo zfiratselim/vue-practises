@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue-1</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        li,
+        li>input {
+            margin: 5px;
+        }
+        
+        #delete {
+            background-color: #FF0000;
+            color: #FFF;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="shopping-list">
+        <ul>
+            <li v-for="(item, index) in items">
+                {{item.piece}} piece {{item.label}}
+                <input type="text" v-model="item.newPiece" placeholder="change piece">
+                <input type="button" @click="changePiece(item)" value="Change">
+                <input type="button" @click="deleteItem(index) " id="delete" value="Delete">
+            </li>
+            <li v-if="items.length===0">Perfect! You finished shopping</li>
+        </ul>
+        <div>
+            <input type="text" v-model="newItemPiece" placeholder="Piece">
+            <input type="text" v-model="newItemlabel" placeholder="name">
+            <input type="button" @click="addNewItem()" value="Add">
+        </div>
+    </div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                items: [{
+                    id: 0,
+                    label: "apple",
+                    piece: 3,
+                    newPiece: 0
+                }, {
+                    id: 1,
+                    label: "banana",
+                    piece: 5,
+                    newPiece: 0
+                }, {
+                    id: 2,
+                    label: "orange",
+                    piece: 4,
+                    newPiece: 0
+                }, {
+                    id: 3,
+                    label: "melon",
+                    piece: 1,
+                    newPiece: 0
+                }, ],
+                newItemlabel: "",
+                newItemPiece: ""
+            }
+        },
+        methods: {
+            changePiece(item) {
+                item.piece = item.newPiece;
+                item.newPiece = 0;
+            },
+            deleteItem(index) {
+                this.items.splice(index, 1);
+            },
+            addNewItem() {
+                this.items.push({
+                    id: this.items.length,
+                    label: this.newItemlabel,
+                    piece: this.newItemPiece
+                })
+                this.newItemPiece = "";
+                this.newItemlabel = "";
+            }
+        }
+    }).mount("#shopping-list")
+</script>
+
+</html>
