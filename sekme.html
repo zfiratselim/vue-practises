@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sekme</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        #sekmeler {
+            width: 600px;
+            height: 700px;
+            background-color: #acc1ff;
+        }
+        
+        #headers {
+            width: 100%;
+            background-color: #ccc;
+            display: flex;
+            flex-direction: row;
+            height: 50px;
+        }
+        
+        .header {
+            flex: 1
+        }
+        
+        .selectedHeader {
+            background-color: #acc1ff;
+        }
+    </style>
+</head>
+<div id="sekmeler">
+    <div id="headers">
+        <div class="header" v-for="(header, index) in headers" @click="showDesc(index)">{{header.header}}</div>
+    </div>
+    <div id="body">{{desc}}</div>
+</div>
+
+<body>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    headers: [{
+                        header: "Balıklar",
+                        description: "Balıklar yüzerler. Metin bu kadar"
+                    }, {
+                        header: "Kuşlar",
+                        description: "Kuşlar uçarlar. Metin bu kadar"
+                    }, {
+                        header: "Spor",
+                        description: "Spor yapmak lazım. Metin bu kadar"
+                    }, {
+                        header: "Uçan balıklar",
+                        description: "Deniz tavşanlarından sonra gördüğüm en ilginç tür. Metin bu kadar"
+                    }, ],
+                    desc: ""
+                }
+            },
+            methods: {
+                showDesc(index) {
+                    this.desc = this.headers[index].description;
+                }
+            }
+        }).mount("#sekmeler")
+    </script>
+</body>
+
+</html>
