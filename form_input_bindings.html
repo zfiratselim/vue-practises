@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Input Bingings</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div class="card">
+        <span>1</span>
+        <div id="v-model-basic">
+            <input v-model="message" placeholder="edit me" />
+            <p>Message is: {{ message }}</p>
+        </div>
+    </div>
+    <div class="card">
+        <span>2</span>
+        <div id="v-model-textarea">
+            <span>Multiline message is:</span>
+            <p>{{ message }}</p>
+            <br />
+            <textarea v-model="message" placeholder="add text"></textarea>
+        </div>
+    </div>
+    <div class="card">
+        <span>3</span>
+        <div id="v-model-multi-checkbox">
+            <div v-for="el in checkboxList">
+                <input type="checkbox" :id="el.id" :value="el.value" v-model="checkList" />
+                <label for="jack">{{el.value}}</label>
+            </div>
+            {{checkList}}
+        </div>
+    </div>
+    <div class="card">
+        <span>4</span>
+        <div id="v-model-radio">
+            <div v-for="item in selectList">
+                <input type="radio" :id="item" :value="item" v-model="select">
+                <label :for="item">{{item}}</label>
+            </div>
+            <span>{{select}}</span>
+        </div>
+    </div>
+    <div class="card">
+        <span>5: Modifier</span>
+        <div id="modifier">
+            <input type="number" v-model.number="number" placeholder="number">
+            <div style="min-height:40px;margin:2px">{{number}}</div>
+            <input type="text" v-model.trim="trim" placeholder="trim">
+            <div style="min-height:40px;margin:2px">{{trim}}</div>
+            <input type="text" v-model.lazy="lazy" placeholder="lazy">
+            <div style="min-height:40px;margin:2px">{{lazy}}</div>
+        </div>
+    </div>
+    <script>
+        //1
+        Vue.createApp({
+            data() {
+                return {
+                    message: ''
+                }
+            }
+        }).mount('#v-model-basic');
+        //2
+        Vue.createApp({
+                data() {
+                    return {
+                        message: ""
+                    }
+                }
+            }).mount("#v-model-textarea")
+            //3
+        Vue.createApp({
+                data() {
+                    return {
+                        checkboxList: [{
+                            id: "tomato",
+                            value: "Tomato"
+                        }, {
+                            id: "banana",
+                            value: "Banana"
+                        }, {
+                            id: "apple",
+                            value: "Apple"
+                        }, {
+                            id: "orange",
+                            value: "Orange"
+                        }],
+                        checkList: []
+                    }
+                }
+            }).mount("#v-model-multi-checkbox")
+            //4
+        Vue.createApp({
+                data() {
+                    return {
+                        selectList: ["icecream", "broccoli", "chocolate", "candy"],
+                        select: ""
+                    }
+                }
+            }).mount("#v-model-radio")
+            //5
+        Vue.createApp({
+            data() {
+                return {
+                    number: "",
+                    trim: "",
+                    lazy: ""
+                }
+            }
+        }).mount("#modifier")
+    </script>
+
+
+    <style>
+        .card {
+            background-color: #EEE;
+            margin: 10px;
+            padding: 5px;
+            width: 300px;
+        }
+    </style>
+</body>
+
+</html>
