@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoped Slot</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div id="scoped-slot">
+        <list>
+            <template #default="slotProps">
+                <b style="color:red">{{ slotProps.item }}</b>
+            </template>
+            <template #second="secondSlotProps">
+                <i style="font-size:20px">{{secondSlotProps.item}}</i>
+            </template>
+        </list>
+    </div>
+    <script>
+        const app = Vue.createApp({});
+        app.component("list", {
+            data() {
+                return {
+                    items: ["First Item", "Second Item", "Third Item"]
+                }
+            },
+            methods: {
+                newItem(item) {
+                    return " New Item:" + item;
+                }
+            },
+            template: `
+            <ul>
+                <li v-for="( item, index ) in items">
+                    <slot :item="item"></slot>
+                    <slot name="second" :item="newItem(item)"></slot>
+                </li>
+            </ul>
+            `
+        });
+        app.mount("#scoped-slot")
+    </script>
+</body>
+
+</html>
