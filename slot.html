@@ -10,9 +10,23 @@
 </head>
 
 <body>
-    <div id="slot-1">
+    <div id="slot">
         <my-button></my-button>
         <my-button><b style="color:red">this is my button</b></my-button>
+        <my-card>
+            <template v-slot:header>
+                <h1>title card</h1>
+              </template>
+
+            <template v-slot:default>
+                <p>A paragraph for the main content.</p>
+                <p>And another one.</p>
+              </template>
+
+            <template v-slot:footer>
+                <p>Here's some contact info [[footer]]</p>
+              </template>
+        </my-card>
     </div>
     <script>
         const app = Vue.createApp({
@@ -29,8 +43,22 @@
             `
         });
 
-
-        app.mount("#slot-1");
+        app.component("my-card", {
+            template: `
+                <div>
+                    <header>
+                        <slot name="header"></slot>
+                    </header>
+                    <main>
+                        <slot></slot>
+                    </main>
+                    <footer>
+                        <slot name="footer"></slot>
+                    </footer>
+                </div>
+            `
+        })
+        app.mount("#slot");
     </script>
 </body>
 
